@@ -11,13 +11,15 @@ struct UF {
     int rank;
 };
 
-vector< list< pair< int, int > > > G;
+typedef long long int lli;
+
+vector< list< pair< lli, int > > > G;
 vector< UF > uf;
 
 struct Edge {
     int u;
     int v;
-    int w;
+    lli w;
 };
 
 bool operator<(Edge a, Edge b) {
@@ -50,19 +52,20 @@ void set_union(int a, int b) {
 
 int main() {
     int N, M;
-    int mst = 0;
+    lli mst = 0;
     priority_queue< Edge > Q;
 
     scanf("%i %i", &N, &M);
 
     for (int n = 0; n <= N; ++n) {
-        G.push_back(list< pair< int, int > >());
+        G.push_back(list< pair< lli, int > >());
         uf.push_back((UF){n, 0});
     }
 
     for (int m = 0; m < M; ++m) {
-        int i, j, k;
-        scanf("%i %i %i", &i, &j, &k);
+        int i, j;
+        lli k;
+        scanf("%i %i %lli", &i, &j, &k);
         G[i].push_back(make_pair(k, j));
         G[j].push_back(make_pair(k, i));
         Q.push((Edge){i, j, -k});
@@ -76,7 +79,7 @@ int main() {
             mst += e.w;
         }
     }
-    printf("%i\n", -mst);
+    printf("%lli\n", -mst);
 
     return 0;
 }
